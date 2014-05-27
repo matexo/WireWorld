@@ -5,6 +5,7 @@
  */
 package wireworld;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -44,12 +45,22 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // plansza
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 80; j++) {
                 state.setState(board.getCell(i, j));
                 g.setColor(state.getColor());
                 g.fillRect(i * 10, j * 10, 10, 10);
             }
+        }
+        
+        // kratka
+        g.setColor(Color.darkGray);
+        for (int i = 0; i < 80; i++) {
+            g.fillRect(i * 10, 0, 1, 800);
+        }
+        for (int i = 0; i < 80; i++) {
+            g.fillRect(0, i * 10, 800, 1);
         }
     }
 
@@ -60,6 +71,10 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         } else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
             isClicked = false;
         }
+        int x = e.getX();
+        int y = e.getY();
+        paintelements.markState((int) x / 10, (int) y / 10, this.board);
+        repaint();
     }
 
     @Override

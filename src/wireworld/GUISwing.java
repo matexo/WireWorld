@@ -5,7 +5,6 @@
  */
 package wireworld;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -21,6 +20,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 /**
@@ -35,28 +35,33 @@ import javax.swing.JTextField;
 public class GUISwing extends JFrame implements ActionListener {
 
     BoardState board;
-    ElementsContext elements = new ElementsContext();
     WireWorldGame game;
     Painter painter;
+    boolean isStop;
 
+    //upper menu
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem readFile, writeFile, help;
+    JFileChooser fileChooser;
 
+    // rightmenu
     JButton buttonStart;
     JButton buttonNext;
     JButton buttonClear;
+    JButton buttonStop;
     JLabel counter;
     JTextField counterField;
-
-    JFileChooser fileChooser;
-
     JComboBox elementChooser;
+    JSlider slider;
+    JLabel sliderLabel;
+    JLabel elementsLabel;
 
     public GUISwing() {
         board = new BoardState();
         game = new WireWorldGame(board);
         fileChooser = new JFileChooser();
+        isStop = false;
 
         iniFrame();
         iniUpperMenu();
@@ -99,41 +104,71 @@ public class GUISwing extends JFrame implements ActionListener {
 
     private void iniRightMenu() {
         buttonStart = new JButton("Start");
-        buttonStart.setBounds(810, 10, 150, 30);
+        buttonStart.setBounds(800, 00, 200, 30);
         buttonStart.addActionListener(this);
         buttonStart.setVisible(true);
         add(buttonStart);
 
         counter = new JLabel("Ilość generacji");
-        counter.setBounds(810, 50, 150, 20);
+        counter.setBounds(805, 90, 200, 30);
         counter.setVisible(true);
         add(counter);
 
         counterField = new JTextField();
-        counterField.setBounds(810, 67, 150, 20);
+        counterField.setBounds(800, 120, 200, 30);
         counterField.setVisible(true);
+        counterField.setText("1000");
         add(counterField);
 
         buttonNext = new JButton("Następna generacja");
-        buttonNext.setBounds(810, 90, 150, 30);
+        buttonNext.setBounds(800, 60, 200, 30);
         buttonNext.setVisible(true);
+        buttonNext.addActionListener(this);
         add(buttonNext);
 
+        buttonStop = new JButton("Stop");
+        buttonStop.setBounds(800, 30, 200, 30);
+        buttonStop.setVisible(true);
+        buttonStop.addActionListener(this);
+        add(buttonStop);
+
         buttonClear = new JButton("Wyczyść plansze");
-        buttonClear.setBounds(810, 700, 150, 30);
+        buttonClear.setBounds(800, 350 , 200, 30);
         buttonClear.setVisible(true);
         buttonClear.addActionListener(this);
         add(buttonClear);
 
         elementChooser = new JComboBox();
-        elementChooser.setBounds(810, 120, 150, 30);
+        elementChooser.setBounds(805, 180, 190, 30);
         elementChooser.addItem("PRZEWODNIK");
         elementChooser.addItem("GŁOWA ELEKTORUN");
         elementChooser.addItem("OGON ELEKTRONU");
         elementChooser.addItem("IZOLATOR");
         elementChooser.addItem("DIODA");
+        elementChooser.addItem("OR");
         elementChooser.addActionListener(this);
         add(elementChooser);
+
+        slider = new JSlider(50, 1000, 100);
+        slider.setBounds(810, 240, 190, 100);
+        slider.setMajorTickSpacing(200);
+        slider.setMinorTickSpacing(100);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.setVisible(true);
+        add(slider);
+
+        sliderLabel = new JLabel("Przerwa [ms]");
+        sliderLabel.setBounds(805, 210, 200, 30);
+        sliderLabel.setVisible(true);
+        add(sliderLabel);
+        
+        elementsLabel = new JLabel("Wybór elementów");
+        elementsLabel.setBounds(805,150,200,30);
+        elementsLabel.setVisible(true);
+        add(elementsLabel);
+        
+        
     }
 
     @Override
@@ -167,9 +202,26 @@ public class GUISwing extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(menu, "ISNTRUKCJA");
         } else if (selection == buttonStart) {
             board = painter.getBoard();
-            board = game.gameNextStep();
-            painter.setBoard(board);
-            painter.repaint();
+            isStop = false;
+            new Thread() {
+                @Override
+                public void run() {
+                    int temp = Integer.parseInt(counterField.getText());
+                    while (temp > 0 && isStop == false) {
+                        board = game.gameNextStep();
+                        painter.setBoard(board);
+                        painter.repaint();
+                        temp--;
+                        counterField.setText(String.valueOf(temp));
+                        try {
+                            Thread.sleep(slider.getValue());
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                }
+            }.start();
         } else if (selection == elementChooser) {
             String temp = elementChooser.getSelectedItem().toString();
             switch (temp) {
@@ -188,12 +240,22 @@ public class GUISwing extends JFrame implements ActionListener {
                 case "DIODA":
                     painter.setElement(new Diode());
                     break;
+                case "OR":
+                    painter.setElement(new OR());
+                    break;
 
             }
         } else if (selection == buttonClear) {
             board.clear();
             painter.setBoard(board);
             painter.repaint();
+        } else if (selection == buttonNext) {
+            board = painter.getBoard();
+            board = game.gameNextStep();
+            painter.setBoard(board);
+            painter.repaint();
+        } else if (selection == buttonStop) {
+            isStop = true;
         }
     }
 

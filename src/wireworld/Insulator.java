@@ -15,7 +15,9 @@ public class Insulator implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {
-        board.setCell(new Insulator(), x, y);
+        if (!board.isEdge(x, y)) {
+            board.setCell(new Insulator(), x, y);
+        }
     }
 
     @Override

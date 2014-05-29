@@ -15,30 +15,14 @@ public class AND implements Element{
     @Override
     public void markState(int x, int y, BoardState board) {
          board.setCell(new Conductor(), x, y);
-        if (!board.isEdge(x - 1, y - 1)) {
-            board.setCell(new Conductor(), x - 1, y - 1);
-        }
-        if (!board.isEdge(x - 1, y)) {
-            board.setCell(new Conductor(), x - 1, y);
-        }
-        if (!board.isEdge(x - 1, y + 1)) {
-            board.setCell(new Conductor(), x - 1, y + 1);
-        }
-        if (!board.isEdge(x, y - 1)) {
-            board.setCell(new Conductor(), x, y - 1);
-        }
-        if (!board.isEdge(x, y + 1)) {
-            board.setCell(new Conductor(), x, y + 1);
-        }
-        if (!board.isEdge(x + 1, y - 1)) {
-            board.setCell(new Conductor(), x + 1, y - 1);
-        }
-        if (!board.isEdge(x + 1, y)) {
-            board.setCell(new Conductor(), x + 1, y);
-        }
-        if (!board.isEdge(x + 1, y + 1)) {
-            board.setCell(new Conductor(), x + 1, y + 1);
-        }
+         board.setCell(new Conductor(), x - 1, y - 1);
+         board.setCell(new Conductor(), x - 1, y);
+         board.setCell(new Conductor(), x - 1, y + 1);
+         board.setCell(new Conductor(), x, y - 1);
+         board.setCell(new Conductor(), x, y + 1);
+         board.setCell(new Conductor(), x + 1, y - 1);
+         board.setCell(new Conductor(), x + 1, y);
+         board.setCell(new Conductor(), x + 1, y + 1);
     }
     
 }

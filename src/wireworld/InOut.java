@@ -49,8 +49,8 @@ public class InOut {
 
     public void writeFile(BoardState board, File file) throws IOException {
         try (PrintStream out = new PrintStream(file)) {
-            for (int i = 0; i < board.getLengthX(); i++) {
-                for (int j = 0; j < board.getLengthY(); j++) {
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getHeight(); j++) {
                     state.setState(board.getCell(i, j));
                     out.print(state.writeState(i, j));
 

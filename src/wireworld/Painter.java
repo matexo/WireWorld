@@ -23,10 +23,12 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
     private final StateContext state;
     private Element paintelements;
     private boolean isClicked;
+    private final int scale;
 
     public Painter(BoardState board) {
         this.board = board;
         state = new StateContext();
+        scale = 800 / board.getHeight();
     }
 
     public void setBoard(BoardState board) {
@@ -38,28 +40,32 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
     }
 
     public void setElement(Element element) {
-        paintelements=element;
+        paintelements = element;
+    }
+
+    public int getScale() {
+        return scale;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // plansza
-        for (int i = 0; i < 80; i++) {
-            for (int j = 0; j < 80; j++) {
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getHeight(); j++) {
                 state.setState(board.getCell(i, j));
                 g.setColor(state.getColor());
-                g.fillRect(i * 10, j * 10, 10, 10);
+                g.fillRect(i * scale, j * scale, scale, scale);
             }
         }
-        
+
         // kratka
         g.setColor(Color.darkGray);
-        for (int i = 0; i < 80; i++) {
-            g.fillRect(i * 10, 0, 1, 800);
+        for (int i = 0; i < board.getWidth(); i++) {
+            g.fillRect(i * scale, 0, 1, 800);
         }
-        for (int i = 0; i < 80; i++) {
-            g.fillRect(0, i * 10, 800, 1);
+        for (int i = 0; i < board.getWidth(); i++) {
+            g.fillRect(0, i * scale, 800, 1);
         }
     }
 
@@ -72,7 +78,7 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         }
         int x = e.getX();
         int y = e.getY();
-        paintelements.markState((int) x / 10, (int) y / 10, this.board);
+        paintelements.markState((int) x / scale, (int) y / scale, this.board);
         repaint();
     }
 
@@ -102,7 +108,7 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         if (isClicked) {
             int x = e.getX();
             int y = e.getY();
-            paintelements.markState((int) x / 10, (int) y / 10, this.board);
+            paintelements.markState((int) x / scale, (int) y / scale, this.board);
             repaint();
         }
     }

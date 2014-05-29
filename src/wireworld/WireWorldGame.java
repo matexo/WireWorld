@@ -32,8 +32,8 @@ public class WireWorldGame implements Game {
     @Override
     public BoardState gameNextStep() {
         board2.clear();
-        for (int j = 0; j < board.getLengthX(); j++) {
-            for (int k = 0; k < board.getLengthY(); k++) {
+        for (int j = 0; j < board.getWidth(); j++) {
+            for (int k = 0; k < board.getHeight(); k++) {
                 state.setState(board.getCell(j, k));
                 board2.setCell(state.nextState(j, k, board), j, k);
             }

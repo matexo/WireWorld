@@ -15,7 +15,9 @@ public class ElectronTail implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {
-        board.setCell(new ElectronTail(), x, y);
+        if (!board.isEdge(x, y)) {
+            board.setCell(new ElectronTail(), x, y);
+        }
     }
 
     @Override

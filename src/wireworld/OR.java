@@ -13,46 +13,20 @@ public class OR implements Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {
-        board.setCell(new Conductor(), x, y);
-        if (!board.isEdge(x + 1, y)) {
-            board.setCell(new Conductor(), x + 1, y);
-        }
-        if (!board.isEdge(x + 1, y - 1)) {
-            board.setCell(new Conductor(), x + 1, y - 1);
-        }
-        if (!board.isEdge(x + 1, y + 1)) {
-            board.setCell(new Conductor(), x + 1, y + 1);
-        }
-        if (!board.isEdge(x, y - 2)) {
-            board.setCell(new Conductor(), x, y - 2);
-        }
-        if (!board.isEdge(x, y + 2)) {
-            board.setCell(new Conductor(), x, y + 2);
-        }
-        if (!board.isEdge(x - 1, y - 2)) {
-            board.setCell(new Conductor(), x - 1, y - 2);
-        }
-        if (!board.isEdge(x - 1, y + 2)) {
-            board.setCell(new Conductor(), x - 1, y + 2);
-        }
-        if (!board.isEdge(x - 2, y + 1)) {
-            board.setCell(new Conductor(), x - 2, y + 1);
-        }
-        if (!board.isEdge(x - 2, y - 1)) {
-            board.setCell(new Conductor(), x - 2, y - 1);
-        }
-        if (!board.isEdge(x - 3, y + 1)) {
-            board.setCell(new Conductor(), x - 3, y + 1);
-        }
-        if (!board.isEdge(x - 3, y - 1)) {
-            board.setCell(new Conductor(), x - 3, y - 1);
-        }
-        if (!board.isEdge(x + 2, y)) {
-            board.setCell(new Conductor(), x + 2, y);
-        }
-        if (!board.isEdge(x + 3, y)) {
-            board.setCell(new Conductor(), x + 3, y);
-        }
+        Element conductor = new Conductor();
+        conductor.markState(x, y, board);
+        conductor.markState(x+1, y, board);
+        conductor.markState(x+1, y-1, board);
+        conductor.markState(x+1, y-2, board);
+        conductor.markState(x, y+2, board);
+        conductor.markState(x-1, y-2, board);
+        conductor.markState(x-1, y+2, board);
+        conductor.markState(x-2, y+1, board);
+        conductor.markState(x-2, y-1, board);
+        conductor.markState(x-3, y+1, board);
+        conductor.markState(x-3, y-1, board);
+        conductor.markState(x+2, y, board);
+        conductor.markState(x+3, y, board);
     }
 
 }

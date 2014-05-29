@@ -167,8 +167,6 @@ public class GUISwing extends JFrame implements ActionListener {
         elementsLabel.setBounds(805,150,200,30);
         elementsLabel.setVisible(true);
         add(elementsLabel);
-        
-        
     }
 
     @Override

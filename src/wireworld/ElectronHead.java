@@ -15,7 +15,9 @@ public class ElectronHead implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {
-        board.setCell(new ElectronHead(), x, y);
+        if (!board.isEdge(x, y)) {
+            board.setCell(new ElectronHead(), x, y);
+        }
     }
 
     @Override

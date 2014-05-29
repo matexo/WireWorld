@@ -15,7 +15,9 @@ public class Conductor implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {
-        board.setCell(new Conductor(), x, y);
+        if (!board.isEdge(x, y)) {
+            board.setCell(new Conductor(), x, y);
+        }
     }
 
     @Override

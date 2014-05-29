@@ -29,6 +29,12 @@ public class ElementFactory {
                 return new Conductor();
             case "PRZEWODNIK":
                 return new Conductor();
+            case "DIODA" :
+                return new Diode();
+            case "Diode":
+                return new Diode();
+            case "OR":
+                return new OR();
             default:
                 System.err.println("Zignorowana linia \"" + s + "\" - nie istnieje taki element");
         }

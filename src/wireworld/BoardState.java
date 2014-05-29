@@ -12,15 +12,31 @@ package wireworld;
 public class BoardState {
 
     private final StateContext board[][];
+    private int width;
+    private int height;
 
     public BoardState() {
-        board = new StateContext[80][80];
-        for (int i = 0; i < 80; i++) {
-            for (int j = 0; j < 80; j++) {
+        width=40;
+        height=40;
+        board = new StateContext[getWidth()][getHeight()];
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
                 board[i][j] = new StateContext(new Insulator());
             }
         }
     }
+    
+        public BoardState(int x , int y) {
+        width=x;
+        height=y;
+        board = new StateContext[x][y];
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                board[i][j] = new StateContext(new Insulator());
+            }
+        }
+    }
+    
 
     public void setCell(State state, int x, int y) {
         board[x][y].setState(state);
@@ -30,12 +46,12 @@ public class BoardState {
         return board[x][y].getState();
     }
 
-    public int getLengthX() {
-        return board.length;
+    public int getWidth() {
+        return width;
     }
 
-    public int getLengthY() {
-        return board[0].length;
+    public int getHeight() {
+        return height;
     }
 
     public void clear() {
@@ -56,7 +72,7 @@ public class BoardState {
     }
 
     public boolean isEdge(int x, int y) {
-        return x < 0 || y < 0 || x >= getLengthX() || y >= getLengthY();
+        return x < 0 || y < 0 || x >= getWidth() || y >= getHeight();
     }
 
     public int neighborsCounter(int x, int y, State state) {

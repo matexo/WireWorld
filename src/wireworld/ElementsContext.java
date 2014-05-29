@@ -11,15 +11,15 @@ import java.awt.Graphics;
  *
  * @author Matexo
  */
-public class ElementsContext implements Elements {
+public class ElementsContext implements Element {
 
-    Elements element;
+    Element element;
 
-    public Elements getElement() {
+    public Element getElement() {
         return element;
     }
 
-    public void setElement(Elements element) {
+    public void setElement(Element element) {
         this.element = element;
     }
 

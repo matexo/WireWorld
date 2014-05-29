@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Matexo
  */
-public class Insulator implements State, Elements {
+public class Insulator implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {

@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Matexo
  */
-public class ElectronTail implements State, Elements {
+public class ElectronTail implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {

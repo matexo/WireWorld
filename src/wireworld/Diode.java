@@ -9,7 +9,7 @@ package wireworld;
  *
  * @author uesr
  */
-public class Diode implements Elements {
+public class Diode implements Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {

@@ -17,11 +17,10 @@ import java.io.PrintStream;
  */
 public class InOut {
 
-    ElementsContext element;
+    Element element;
     StateContext state;
 
     public InOut() {
-        element = new ElementsContext();
         state = new StateContext();
     }
 
@@ -34,23 +33,7 @@ public class InOut {
             while ((buffer = reader.readLine()) != null) {
                 String[] p = buffer.split("\\s+");
                 try {
-                    switch (p[0]) {
-                        case "Insulator":
-                            element.setElement(new Insulator());
-                            break;
-                        case "ElectronHead":
-                            element.setElement(new ElectronHead());
-                            break;
-                        case "ElectronTail":
-                            element.setElement(new ElectronTail());
-                            break;
-                        case "Conductor":
-                            element.setElement(new Conductor());
-                            break;
-                        default:
-                            System.err.println("Zignorowana linia \"" + buffer + "\" - nie istnieje taki element");
-                            continue;
-                    }
+                    element = ElementFactory.buildElement(p[0]);
                     element.markState(Integer.parseInt(p[1]), Integer.parseInt(p[2]), board);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.err.println("Zignorowana linia \"" + buffer + "\" - zbyt mało pól");

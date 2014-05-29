@@ -38,7 +38,7 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         return this.board;
     }
 
-    public void setElement(Elements element) {
+    public void setElement(Element element) {
         paintelements.setElement(element);
     }
 

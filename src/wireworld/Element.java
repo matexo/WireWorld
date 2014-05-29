@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Matexo
  */
-public interface Elements {
+public interface Element {
     void markState(int x , int y , BoardState board);
     
 }

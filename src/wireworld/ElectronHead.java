@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Matexo
  */
-public class ElectronHead implements State, Elements {
+public class ElectronHead implements State, Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {

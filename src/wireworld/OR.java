@@ -9,7 +9,7 @@ package wireworld;
  *
  * @author uesr
  */
-public class OR implements Elements {
+public class OR implements Element {
 
     @Override
     public void markState(int x, int y, BoardState board) {

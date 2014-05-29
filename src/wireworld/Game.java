@@ -10,6 +10,6 @@ package wireworld;
  *
  * @author Matexo
  */
-public interface Games {
+public interface Game {
     BoardState gameNextStep();
 }

@@ -141,7 +141,7 @@ public class GUISwing extends JFrame implements ActionListener {
         elementChooser = new JComboBox();
         elementChooser.setBounds(805, 180, 190, 30);
         elementChooser.addItem("PRZEWODNIK");
-        elementChooser.addItem("GŁOWA ELEKTORUN");
+        elementChooser.addItem("GŁOWA ELEKTRONU");
         elementChooser.addItem("OGON ELEKTRONU");
         elementChooser.addItem("IZOLATOR");
         elementChooser.addItem("DIODA");
@@ -224,27 +224,7 @@ public class GUISwing extends JFrame implements ActionListener {
             }.start();
         } else if (selection == elementChooser) {
             String temp = elementChooser.getSelectedItem().toString();
-            switch (temp) {
-                case "IZOLATOR":
-                    painter.setElement(new Insulator());
-                    break;
-                case "PRZEWODNIK":
-                    painter.setElement(new Conductor());
-                    break;
-                case "GŁOWA ELEKTORUN":
-                    painter.setElement(new ElectronHead());
-                    break;
-                case "OGON ELEKTRONU":
-                    painter.setElement(new ElectronTail());
-                    break;
-                case "DIODA":
-                    painter.setElement(new Diode());
-                    break;
-                case "OR":
-                    painter.setElement(new OR());
-                    break;
-
-            }
+            painter.setElement(ElementFactory.buildElement(temp));
         } else if (selection == buttonClear) {
             board.clear();
             painter.setBoard(board);

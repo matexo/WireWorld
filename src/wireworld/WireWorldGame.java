@@ -9,7 +9,7 @@ package wireworld;
  *
  * @author Matexo
  */
-public class WireWorldGame implements Games {
+public class WireWorldGame implements Game {
 
     private BoardState board;
     private BoardState board2;

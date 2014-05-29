@@ -21,13 +21,12 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
 
     private BoardState board;
     private final StateContext state;
-    private final ElementsContext paintelements;
+    private Element paintelements;
     private boolean isClicked;
 
     public Painter(BoardState board) {
         this.board = board;
         state = new StateContext();
-        paintelements = new ElementsContext();
     }
 
     public void setBoard(BoardState board) {
@@ -39,7 +38,7 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
     }
 
     public void setElement(Element element) {
-        paintelements.setElement(element);
+        paintelements=element;
     }
 
     @Override

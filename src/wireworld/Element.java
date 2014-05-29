@@ -6,8 +6,6 @@
 
 package wireworld;
 
-import java.awt.Graphics;
-
 /**
  *
  * @author Matexo

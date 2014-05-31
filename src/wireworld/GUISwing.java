@@ -27,12 +27,12 @@ import javax.swing.JTextField;
  *
  * @author Matexo
  */
-// pozycja okien
+
 // sprawdzanie czy .txt
 // standardowo niech pokazuje pulpit
 // dodac instrukcje
-// buttonsy do elementow
-public class GUISwing extends JFrame implements ActionListener {
+
+public class GUISwing extends JFrame implements ActionListener , Observer {
 
     BoardState board;
     WireWorldGame game;
@@ -62,6 +62,8 @@ public class GUISwing extends JFrame implements ActionListener {
         game = new WireWorldGame(board);
         fileChooser = new JFileChooser();
         isStop = false;
+        
+
 
         iniFrame();
         iniUpperMenu();
@@ -72,12 +74,18 @@ public class GUISwing extends JFrame implements ActionListener {
         painter.addMouseListener(painter);
         painter.addMouseMotionListener(painter);
         painter.setElement(new Conductor());
+        
         add(painter);
+        
+        board.register(game);
+        board.register(painter);
+        board.register(this);
 
     }
 
     private void iniFrame() {
         setSize(1000, 800);
+        setLocationRelativeTo( null );
         setResizable(false);
         setTitle("WireWorld");
         setLayout(null);
@@ -106,35 +114,29 @@ public class GUISwing extends JFrame implements ActionListener {
         buttonStart = new JButton("Start");
         buttonStart.setBounds(800, 00, 200, 30);
         buttonStart.addActionListener(this);
-        buttonStart.setVisible(true);
         add(buttonStart);
 
         counter = new JLabel("Ilość generacji");
         counter.setBounds(805, 90, 200, 30);
-        counter.setVisible(true);
         add(counter);
 
         counterField = new JTextField();
         counterField.setBounds(800, 120, 200, 30);
-        counterField.setVisible(true);
         counterField.setText("1000");
         add(counterField);
 
         buttonNext = new JButton("Następna generacja");
         buttonNext.setBounds(800, 60, 200, 30);
-        buttonNext.setVisible(true);
         buttonNext.addActionListener(this);
         add(buttonNext);
 
         buttonStop = new JButton("Stop");
         buttonStop.setBounds(800, 30, 200, 30);
-        buttonStop.setVisible(true);
         buttonStop.addActionListener(this);
         add(buttonStop);
 
         buttonClear = new JButton("Wyczyść plansze");
         buttonClear.setBounds(800, 350 , 200, 30);
-        buttonClear.setVisible(true);
         buttonClear.addActionListener(this);
         add(buttonClear);
 
@@ -155,17 +157,14 @@ public class GUISwing extends JFrame implements ActionListener {
         slider.setMinorTickSpacing(100);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
-        slider.setVisible(true);
         add(slider);
 
         sliderLabel = new JLabel("Przerwa [ms]");
         sliderLabel.setBounds(805, 210, 200, 30);
-        sliderLabel.setVisible(true);
         add(sliderLabel);
         
         elementsLabel = new JLabel("Wybór elementów");
         elementsLabel.setBounds(805,150,200,30);
-        elementsLabel.setVisible(true);
         add(elementsLabel);
     }
 
@@ -198,6 +197,7 @@ public class GUISwing extends JFrame implements ActionListener {
             }
         } else if (selection == help) {
             JOptionPane.showMessageDialog(menu, "ISNTRUKCJA");
+            
         } else if (selection == buttonStart) {
             board = painter.getBoard();
             isStop = false;
@@ -235,6 +235,11 @@ public class GUISwing extends JFrame implements ActionListener {
         } else if (selection == buttonStop) {
             isStop = true;
         }
+    }
+
+    @Override
+    public void update(int x, int y, State state) {
+        
     }
 
 }

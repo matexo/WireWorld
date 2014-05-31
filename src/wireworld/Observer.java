@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package wireworld;
 
 /**
  *
  * @author Matexo
  */
-public interface Game {
-    BoardState  gameNextStep();
+public interface Observer {
+
+    public void update(int x, int y, State state);
+
 }

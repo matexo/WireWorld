@@ -9,7 +9,7 @@ package wireworld;
  *
  * @author Matexo
  */
-public class WireWorldGame implements Game {
+public class WireWorldGame implements Game , Observer {
 
     private BoardState board;
     private BoardState board2;
@@ -45,5 +45,15 @@ public class WireWorldGame implements Game {
 
         return board;
     }
+
+    @Override
+    public void update(int x, int y, State state) {
+        //this.board.setCell(state, x, y);
+        //this.board.updateCell(state, x, y);
+
+    }
+    
+
+
 
 }

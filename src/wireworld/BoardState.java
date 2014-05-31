@@ -5,19 +5,22 @@
  */
 package wireworld;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author uesr
  */
-public class BoardState {
+public final class BoardState implements Subject {
 
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
     private final StateContext board[][];
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public BoardState() {
-        width=40;
-        height=40;
+        width = 40;
+        height = 40;
         board = new StateContext[getWidth()][getHeight()];
         for (int i = 0; i < getWidth(); i++) {
             for (int j = 0; j < getHeight(); j++) {
@@ -25,10 +28,10 @@ public class BoardState {
             }
         }
     }
-    
-        public BoardState(int x , int y) {
-        width=x;
-        height=y;
+
+    public BoardState(int x, int y) {
+        width = x;
+        height = y;
         board = new StateContext[x][y];
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
@@ -36,14 +39,19 @@ public class BoardState {
             }
         }
     }
-    
 
     public void setCell(State state, int x, int y) {
         board[x][y].setState(state);
+        notifyObservers(x, y);
     }
 
     public State getCell(int x, int y) {
         return board[x][y].getState();
+    }
+    
+    public void updateCell(State state , int x , int y)
+    {
+        board[x][y].setState(state);
     }
 
     public int getWidth() {
@@ -88,6 +96,32 @@ public class BoardState {
             }
         }
         return neighbor;
+    }
+
+    //observerpattern
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
+    }
+
+    @Override
+    public void register(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(int x, int y) {
+        for (Observer ob : observers) {
+            ob.update(x , y , getCell(x, y));
+        }
     }
 
 }

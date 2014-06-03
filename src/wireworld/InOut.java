@@ -19,9 +19,9 @@ public class InOut implements Observer{
 
     Element element;
     StateContext state;
-    BoardState board;
+    Containter board;
 
-    public InOut(BoardState board)
+    public InOut(Containter board)
     {
         this.board = board;
         state = new StateContext();
@@ -59,7 +59,7 @@ public class InOut implements Observer{
         }
     }
 
-    public void writeFile(BoardState board, File file) throws IOException
+    public void writeFile(Containter board, File file) throws IOException
     {
         try (PrintStream out = new PrintStream(file))
         {

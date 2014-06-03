@@ -11,14 +11,14 @@ import java.util.ArrayList;
  *
  * @author uesr
  */
-public final class BoardState implements Subject {
+public final class Containter implements Subject , Container<State>{
 
-    private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private ArrayList<Observer> observers = new ArrayList<>();
     private final StateContext board[][];
     private final int width;
     private final int height;
 
-    public BoardState()
+    public Containter()
     {
         width = 40;
         height = 40;
@@ -32,7 +32,7 @@ public final class BoardState implements Subject {
         }
     }
 
-    public BoardState(int x, int y)
+    public Containter(int x, int y)
     {
         width = x;
         height = y;
@@ -46,12 +46,14 @@ public final class BoardState implements Subject {
         }
     }
 
+    @Override
     public void setCell(State state, int x, int y)
     {
         board[x][y].setState(state);
         notifyObservers(x, y);
     }
 
+    @Override
     public State getCell(int x, int y)
     {
         return board[x][y].getState();
@@ -62,27 +64,31 @@ public final class BoardState implements Subject {
         board[x][y].setState(state);
     }
 
+    @Override
     public int getWidth()
     {
         return width;
     }
 
+    @Override
     public int getHeight()
     {
         return height;
     }
 
+    @Override
     public void clear()
     {
-        for (int i = 0; i < board.length; i++)
+        for (StateContext[] board1 : board)
         {
-            for (int j = 0; j < board[i].length; j++)
+            for (StateContext board11 : board1)
             {
-                board[i][j].setState(new Insulator());
+                board11.setState(new Insulator());
             }
         }
     }
 
+    @Override
     public void write()
     {
         for (int i = 0; i < board.length; i++)
@@ -95,11 +101,13 @@ public final class BoardState implements Subject {
         }
     }
 
+    @Override
     public boolean isEdge(int x, int y)
     {
         return x < 0 || y < 0 || x >= getWidth() || y >= getHeight();
     }
 
+    @Override
     public int neighborsCounter(int x, int y, State state)
     {
         int neighbor = 0;

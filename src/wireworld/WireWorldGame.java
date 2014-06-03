@@ -11,23 +11,23 @@ package wireworld;
  */
 public class WireWorldGame implements Game, Observer {
 
-    private BoardState board;
-    private BoardState boardTmp;
+    private Containter board;
+    private Containter boardTmp;
     private final StateContext state;
 
-    public WireWorldGame(BoardState board)
+    public WireWorldGame(Containter board)
     {
         this.board = board;
-        this.boardTmp = new BoardState();
+        this.boardTmp = new Containter();
         state = new StateContext();
     }
 
-    public void setBoard(BoardState board)
+    public void setBoard(Containter board)
     {
         this.board = board;
     }
 
-    public BoardState getBoard()
+    public Containter getBoard()
     {
         return board;
     }

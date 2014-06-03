@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 // dodac instrukcje
 public class GUISwing extends JFrame implements ActionListener {
 
-    BoardState board;
+    Containter board;
     WireWorldGame game;
     Painter painter;
     InOut readWrite;
@@ -58,10 +58,10 @@ public class GUISwing extends JFrame implements ActionListener {
 
     public GUISwing()
     {
-        this.board = new BoardState();
+        this.board = new Containter();
         game = new WireWorldGame(this.board);
         readWrite = new InOut(this.board);
-        
+
         fileChooser = new JFileChooser();
         isStop = false;
 
@@ -175,9 +175,9 @@ public class GUISwing extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e)
     {
         Object selection = e.getSource();
-
         if (selection == readFile)
         {
+            board.clear();
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             {
                 File file = fileChooser.getSelectedFile();
@@ -189,8 +189,8 @@ public class GUISwing extends JFrame implements ActionListener {
                 {
                     Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                painter.setBoard(board);
-            }        }
+            }
+        }
         else if (selection == writeFile)
         {
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -209,11 +209,9 @@ public class GUISwing extends JFrame implements ActionListener {
         else if (selection == help)
         {
             JOptionPane.showMessageDialog(menu, "ISNTRUKCJA");
-
         }
         else if (selection == buttonStart)
         {
-            //board = painter.getBoard();
             isStop = false;
             new Thread() {
                 @Override
@@ -223,8 +221,6 @@ public class GUISwing extends JFrame implements ActionListener {
                     while (temp > 0 && isStop == false)
                     {
                         game.gameNextStep();
-                        //painter.setBoard(board);
-                        painter.repaint();
                         temp--;
                         counterField.setText(String.valueOf(temp));
                         try
@@ -248,21 +244,16 @@ public class GUISwing extends JFrame implements ActionListener {
         else if (selection == buttonClear)
         {
             board.clear();
-            //painter.setBoard(board);
-            //painter.repaint();
+            painter.repaint();
         }
         else if (selection == buttonNext)
         {
-            //board = painter.getBoard();
             game.gameNextStep();
-            //painter.setBoard(board);
-            painter.repaint();
         }
         else if (selection == buttonStop)
         {
             isStop = true;
         }
     }
-
 
 }

@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public interface State {
 
-    State nextState(int x, int y, BoardState board);
+    State nextState(int x, int y, Containter board);
 
     Color getColor();
 

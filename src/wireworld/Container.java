@@ -8,16 +8,17 @@ package wireworld;
 /**
  *
  * @author Matexo
+ * @param <T>
  */
-public interface Container {
+public interface Container<T> {
 
-    public void setCell(int state, int x, int y);
+    public void setCell(T state, int x, int y);
 
-    public int getCell(int x, int y);
+    public T getCell(int x, int y);
 
-    public int getLengthX();
-
-    public int getLengthY();
+    public int getWidth();
+    
+    public int getHeight();
 
     public void clear();
 
@@ -25,6 +26,6 @@ public interface Container {
 
     public boolean isEdge(int x, int y);
 
-    public int neighborsCounter(int x, int y, int state);
+    public int neighborsCounter(int x, int y, T state);
 
 }

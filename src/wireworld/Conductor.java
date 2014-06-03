@@ -14,7 +14,7 @@ import java.awt.Color;
 public class Conductor implements State, Element {
 
     @Override
-    public void markElement(int x, int y, BoardState board)
+    public void markElement(int x, int y, Containter board)
     {
         if (!board.isEdge(x, y))
         {
@@ -23,7 +23,7 @@ public class Conductor implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, BoardState board)
+    public State nextState(int x, int y, Containter board)
     {
         int counter = board.neighborsCounter(x, y, new ElectronHead());
         if (counter != 1 && counter != 2)

@@ -11,6 +11,6 @@ package wireworld;
  */
 public interface Element {
 
-    void markElement(int x, int y, BoardState board);
+    void markElement(int x, int y, Containter board);
 
 }

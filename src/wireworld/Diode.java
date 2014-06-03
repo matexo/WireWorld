@@ -12,7 +12,7 @@ package wireworld;
 public class Diode implements Element {
 
     @Override
-    public void markElement(int x, int y, BoardState board)
+    public void markElement(int x, int y, Containter board)
     {
         Element conductor = new Conductor();
         conductor.markElement(x, y, board);

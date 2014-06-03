@@ -18,13 +18,13 @@ import javax.swing.JPanel;
  */
 public class Painter extends JPanel implements MouseListener, MouseMotionListener, Observer {
 
-    private BoardState board;
+    private Containter board;
     private final StateContext state;
     private Element paintelements;
     private boolean isClicked;
     private final int scale;
 
-    public Painter(BoardState board)
+    public Painter(Containter board)
     {
         this.board = board;
         state = new StateContext();
@@ -32,12 +32,12 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         ///this.board.register(this);
     }
 
-    public void setBoard(BoardState board)
+    public void setBoard(Containter board)
     {
         this.board = board;
     }
 
-    public BoardState getBoard()
+    public Containter getBoard()
     {
         return this.board;
     }
@@ -84,7 +84,7 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         int x = e.getX();
         int y = e.getY();
         paintelements.markElement((int) x / scale, (int) y / scale, this.board);
-        repaint();
+        //repaint();
     }
 
     @Override

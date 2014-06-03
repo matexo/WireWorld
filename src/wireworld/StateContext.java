@@ -36,7 +36,7 @@ public class StateContext implements State {
     }
 
     @Override
-    public State nextState(int x, int y, BoardState board)
+    public State nextState(int x, int y, Containter board)
     {
         return cellState.nextState(x, y, board);
     }

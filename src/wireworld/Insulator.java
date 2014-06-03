@@ -14,24 +14,29 @@ import java.awt.Color;
 public class Insulator implements State, Element {
 
     @Override
-    public void markState(int x, int y, BoardState board) {
-        if (!board.isEdge(x, y)) {
+    public void markElement(int x, int y, BoardState board)
+    {
+        if (!board.isEdge(x, y))
+        {
             board.setCell(new Insulator(), x, y);
         }
     }
 
     @Override
-    public State nextState(int x, int y, BoardState board) {
+    public State nextState(int x, int y, BoardState board)
+    {
         return new Insulator();
     }
 
     @Override
-    public String writeState(int x, int y) {
+    public String writeState(int x, int y)
+    {
         return "";
     }
 
     @Override
-    public Color getColor() {
+    public Color getColor()
+    {
         return Color.BLACK;
     }
 

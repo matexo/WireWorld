@@ -15,6 +15,6 @@ public interface Subject {
 
     public void unregister(Observer observer);
 
-    public void notifyObservers(int x , int y);
+    public void notifyObservers(int x, int y);
 
 }

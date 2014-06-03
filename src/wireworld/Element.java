@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package wireworld;
 
 /**
@@ -11,6 +10,7 @@ package wireworld;
  * @author Matexo
  */
 public interface Element {
-    void markState(int x , int y , BoardState board);
-    
+
+    void markElement(int x, int y, BoardState board);
+
 }

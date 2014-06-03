@@ -12,7 +12,10 @@ import java.awt.Color;
  * @author Matexo
  */
 public interface State {
+
     State nextState(int x, int y, BoardState board);
+
     Color getColor();
+
     String writeState(int x, int y);
 }

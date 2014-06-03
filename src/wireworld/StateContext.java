@@ -15,34 +15,41 @@ public class StateContext implements State {
 
     private State cellState;
 
-    public StateContext() {
+    public StateContext()
+    {
 
     }
 
-    public StateContext(State state) {
+    public StateContext(State state)
+    {
         cellState = state;
     }
 
-    public void setState(State state) {
+    public void setState(State state)
+    {
         cellState = state;
     }
 
-    public State getState() {
+    public State getState()
+    {
         return cellState;
     }
 
     @Override
-    public State nextState(int x, int y, BoardState board) {
+    public State nextState(int x, int y, BoardState board)
+    {
         return cellState.nextState(x, y, board);
     }
 
     @Override
-    public Color getColor() {
+    public Color getColor()
+    {
         return cellState.getColor();
     }
 
     @Override
-    public String writeState(int x, int y) {
+    public String writeState(int x, int y)
+    {
         return cellState.writeState(x, y);
     }
 

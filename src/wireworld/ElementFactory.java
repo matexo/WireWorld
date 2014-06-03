@@ -11,8 +11,10 @@ package wireworld;
  */
 public class ElementFactory {
 
-    public static Element buildElement(String s) {
-        switch (s) {
+    public static Element buildElement(String s)
+    {
+        switch (s)
+        {
             case "Insulator":
                 return new Insulator();
             case "IZOLATOR":
@@ -20,7 +22,7 @@ public class ElementFactory {
             case "ElectronHead":
                 return new ElectronHead();
             case "GŁOWA ELEKTRONU":
-                return new ElectronHead();    
+                return new ElectronHead();
             case "ElectronTail":
                 return new ElectronTail();
             case "OGON ELEKTRONU":
@@ -29,7 +31,7 @@ public class ElementFactory {
                 return new Conductor();
             case "PRZEWODNIK":
                 return new Conductor();
-            case "DIODA" :
+            case "DIODA":
                 return new Diode();
             case "Diode":
                 return new Diode();

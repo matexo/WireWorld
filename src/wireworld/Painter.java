@@ -24,34 +24,43 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
     private boolean isClicked;
     private final int scale;
 
-    public Painter(BoardState board) {
+    public Painter(BoardState board)
+    {
         this.board = board;
         state = new StateContext();
         scale = 800 / board.getHeight();
+        ///this.board.register(this);
     }
 
-    public void setBoard(BoardState board) {
+    public void setBoard(BoardState board)
+    {
         this.board = board;
     }
 
-    public BoardState getBoard() {
+    public BoardState getBoard()
+    {
         return this.board;
     }
 
-    public void setElement(Element element) {
+    public void setElement(Element element)
+    {
         paintelements = element;
     }
 
-    public int getScale() {
+    public int getScale()
+    {
         return scale;
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
         // plansza
-        for (int i = 0; i < board.getWidth(); i++) {
-            for (int j = 0; j < board.getHeight(); j++) {
+        for (int i = 0; i < board.getWidth(); i++)
+        {
+            for (int j = 0; j < board.getHeight(); j++)
+            {
                 state.setState(board.getCell(i, j));
                 g.setColor(state.getColor());
                 g.fillRect(i * scale, j * scale, scale, scale);
@@ -59,59 +68,71 @@ public class Painter extends JPanel implements MouseListener, MouseMotionListene
         }
         // kratka
         g.setColor(Color.darkGray);
-        for (int i = 0; i < board.getWidth(); i++) {
+        for (int i = 0; i < board.getWidth(); i++)
+        {
             g.fillRect(i * scale, 0, 1, 800);
         }
-        for (int i = 0; i < board.getWidth(); i++) {
+        for (int i = 0; i < board.getWidth(); i++)
+        {
             g.fillRect(0, i * scale, 800, 1);
         }
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e)
+    {
         int x = e.getX();
         int y = e.getY();
-        paintelements.markState((int) x / scale, (int) y / scale, this.board);
+        paintelements.markElement((int) x / scale, (int) y / scale, this.board);
         repaint();
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e)
+    {
         isClicked = true;
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e)
+    {
         isClicked = false;
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent e)
+    {
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent e)
+    {
         isClicked = false;
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
+    public void mouseDragged(MouseEvent e)
+    {
         mouseMoved(e);
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        if (isClicked) {
+    public void mouseMoved(MouseEvent e)
+    {
+        if (isClicked)
+        {
             int x = e.getX();
             int y = e.getY();
-            paintelements.markState((int) x / scale, (int) y / scale, this.board);
-            repaint();
+            paintelements.markElement((int) x / scale, (int) y / scale, this.board);
+            //repaint();
         }
     }
 
     @Override
-    public void update(int x, int y, State state) {
-        //this.board.updateCell(state, x, y);
+    public void update(int x, int y, State state)
+    {
+        this.board.updateCell(state, x, y);
+        repaint();
     }
 
 }

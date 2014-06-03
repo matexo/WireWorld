@@ -9,51 +9,60 @@ package wireworld;
  *
  * @author Matexo
  */
-public class WireWorldGame implements Game , Observer {
+public class WireWorldGame implements Game, Observer {
 
     private BoardState board;
-    private BoardState board2;
+    private BoardState boardTmp;
     private final StateContext state;
 
-    public WireWorldGame(BoardState board) {
+    public WireWorldGame(BoardState board)
+    {
         this.board = board;
-        board2 = new BoardState();
+        this.boardTmp = new BoardState();
         state = new StateContext();
     }
 
-    public void setBoard(BoardState board) {
+    public void setBoard(BoardState board)
+    {
         this.board = board;
     }
 
-    public BoardState getBoard() {
+    public BoardState getBoard()
+    {
         return board;
     }
 
     @Override
-    public BoardState gameNextStep() {
-        board2.clear();
-        for (int j = 0; j < board.getWidth(); j++) {
-            for (int k = 0; k < board.getHeight(); k++) {
-                state.setState(board.getCell(j, k));
-                board2.setCell(state.nextState(j, k, board), j, k);
+    public void gameNextStep()
+    {
+        boardTmp.clear();
+        for (int i = 0; i < board.getWidth(); i++)
+        {
+            for (int j = 0; j < board.getHeight(); j++)
+            {
+                state.setState(board.getCell(i, j));
+                boardTmp.setCell(state.nextState(i, j, board), i, j);
             }
         }
 
-        BoardState boardTmp = board;
-        board = board2;
-        board2 = boardTmp;
+        // uaktywnienie wzorca obserwator 
+        for (int i = 0; i < board.getWidth(); i++)
+        {
+            for (int j = 0; j < board.getHeight(); j++)
+            {
+                if (!board.getCell(i, j).getClass().equals(boardTmp.getCell(i, j).getClass()))
+                {
+                    board.setCell(boardTmp.getCell(i, j), i, j);
+                }
+            }
+        }
 
-        return board;
     }
 
     @Override
-    public void update(int x, int y, State state) {
-        //this.board.setCell(state, x, y);
-        //this.board.updateCell(state, x, y);
-
+    public void update(int x, int y, State state)
+    {
+        this.board.updateCell(state, x, y);
     }
-    
-
-
 
 }

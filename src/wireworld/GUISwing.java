@@ -27,16 +27,15 @@ import javax.swing.JTextField;
  *
  * @author Matexo
  */
-
 // sprawdzanie czy .txt
 // standardowo niech pokazuje pulpit
 // dodac instrukcje
-
-public class GUISwing extends JFrame implements ActionListener , Observer {
+public class GUISwing extends JFrame implements ActionListener {
 
     BoardState board;
     WireWorldGame game;
     Painter painter;
+    InOut readWrite;
     boolean isStop;
 
     //upper menu
@@ -57,13 +56,14 @@ public class GUISwing extends JFrame implements ActionListener , Observer {
     JLabel sliderLabel;
     JLabel elementsLabel;
 
-    public GUISwing() {
-        board = new BoardState();
-        game = new WireWorldGame(board);
+    public GUISwing()
+    {
+        this.board = new BoardState();
+        game = new WireWorldGame(this.board);
+        readWrite = new InOut(this.board);
+        
         fileChooser = new JFileChooser();
         isStop = false;
-        
-
 
         iniFrame();
         iniUpperMenu();
@@ -74,25 +74,27 @@ public class GUISwing extends JFrame implements ActionListener , Observer {
         painter.addMouseListener(painter);
         painter.addMouseMotionListener(painter);
         painter.setElement(new Conductor());
-        
+
         add(painter);
-        
+
         board.register(game);
         board.register(painter);
-        board.register(this);
+        board.register(readWrite);
 
     }
 
-    private void iniFrame() {
+    private void iniFrame()
+    {
         setSize(1000, 800);
-        setLocationRelativeTo( null );
+        setLocationRelativeTo(null);
         setResizable(false);
         setTitle("WireWorld");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void iniUpperMenu() {
+    private void iniUpperMenu()
+    {
         menuBar = new JMenuBar();
         menu = new JMenu("Opcje");
         readFile = new JMenuItem("Wczytaj plik");
@@ -110,7 +112,8 @@ public class GUISwing extends JFrame implements ActionListener , Observer {
 
     }
 
-    private void iniRightMenu() {
+    private void iniRightMenu()
+    {
         buttonStart = new JButton("Start");
         buttonStart.setBounds(800, 00, 200, 30);
         buttonStart.addActionListener(this);
@@ -136,7 +139,7 @@ public class GUISwing extends JFrame implements ActionListener , Observer {
         add(buttonStop);
 
         buttonClear = new JButton("Wyczyść plansze");
-        buttonClear.setBounds(800, 350 , 200, 30);
+        buttonClear.setBounds(800, 350, 200, 30);
         buttonClear.addActionListener(this);
         add(buttonClear);
 
@@ -162,84 +165,104 @@ public class GUISwing extends JFrame implements ActionListener , Observer {
         sliderLabel = new JLabel("Przerwa [ms]");
         sliderLabel.setBounds(805, 210, 200, 30);
         add(sliderLabel);
-        
+
         elementsLabel = new JLabel("Wybór elementów");
-        elementsLabel.setBounds(805,150,200,30);
+        elementsLabel.setBounds(805, 150, 200, 30);
         add(elementsLabel);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         Object selection = e.getSource();
 
-        if (selection == readFile) {
-            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (selection == readFile)
+        {
+            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            {
                 File file = fileChooser.getSelectedFile();
-                InOut read = new InOut();
-                try {
-                    board = read.readFile(file);
-                    painter.setBoard(board);
-                } catch (IOException ex) {
+                try
+                {
+                    readWrite.readFile(file);
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                painter.setBoard(board);
+            }        }
+        else if (selection == writeFile)
+        {
+            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            {
+                File file = fileChooser.getSelectedFile();
+                try
+                {
+                    readWrite.writeFile(board, file);
+                }
+                catch (IOException ex)
+                {
                     Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            game = new WireWorldGame(board);
-            painter.repaint();
-        } else if (selection == writeFile) {
-            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                InOut write = new InOut();
-                try {
-                    write.writeFile(board, file);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } else if (selection == help) {
+        }
+        else if (selection == help)
+        {
             JOptionPane.showMessageDialog(menu, "ISNTRUKCJA");
-            
-        } else if (selection == buttonStart) {
-            board = painter.getBoard();
+
+        }
+        else if (selection == buttonStart)
+        {
+            //board = painter.getBoard();
             isStop = false;
             new Thread() {
                 @Override
-                public void run() {
+                public void run()
+                {
                     int temp = Integer.parseInt(counterField.getText());
-                    while (temp > 0 && isStop == false) {
-                        board = game.gameNextStep();
-                        painter.setBoard(board);
+                    while (temp > 0 && isStop == false)
+                    {
+                        game.gameNextStep();
+                        //painter.setBoard(board);
                         painter.repaint();
                         temp--;
                         counterField.setText(String.valueOf(temp));
-                        try {
+                        try
+                        {
                             Thread.sleep(slider.getValue());
-                        } catch (InterruptedException ex) {
+                        }
+                        catch (InterruptedException ex)
+                        {
                             Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                     }
                 }
             }.start();
-        } else if (selection == elementChooser) {
+        }
+        else if (selection == elementChooser)
+        {
             String temp = elementChooser.getSelectedItem().toString();
             painter.setElement(ElementFactory.buildElement(temp));
-        } else if (selection == buttonClear) {
+        }
+        else if (selection == buttonClear)
+        {
             board.clear();
-            painter.setBoard(board);
+            //painter.setBoard(board);
+            //painter.repaint();
+        }
+        else if (selection == buttonNext)
+        {
+            //board = painter.getBoard();
+            game.gameNextStep();
+            //painter.setBoard(board);
             painter.repaint();
-        } else if (selection == buttonNext) {
-            board = painter.getBoard();
-            board = game.gameNextStep();
-            painter.setBoard(board);
-            painter.repaint();
-        } else if (selection == buttonStop) {
+        }
+        else if (selection == buttonStop)
+        {
             isStop = true;
         }
     }
 
-    @Override
-    public void update(int x, int y, State state) {
-        
-    }
 
 }

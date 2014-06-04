@@ -11,37 +11,37 @@ import java.util.ArrayList;
  *
  * @author uesr
  */
-public final class Containter implements Subject , Container<State>{
+public final class Board implements Subject , Container<State>{
 
     private ArrayList<Observer> observers = new ArrayList<>();
-    private final StateContext board[][];
+    private final State board[][];
     private final int width;
     private final int height;
 
-    public Containter()
+    public Board()
     {
         width = 40;
         height = 40;
-        board = new StateContext[getWidth()][getHeight()];
+        board = new State[getWidth()][getHeight()];
         for (int i = 0; i < getWidth(); i++)
         {
             for (int j = 0; j < getHeight(); j++)
             {
-                board[i][j] = new StateContext(new Insulator());
+                board[i][j] = new Insulator();
             }
         }
     }
 
-    public Containter(int x, int y)
+    public Board(int x, int y)
     {
         width = x;
         height = y;
-        board = new StateContext[x][y];
+        board = new State[x][y];
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                board[i][j] = new StateContext(new Insulator());
+                board[i][j] = new Insulator();
             }
         }
     }
@@ -49,19 +49,19 @@ public final class Containter implements Subject , Container<State>{
     @Override
     public void setCell(State state, int x, int y)
     {
-        board[x][y].setState(state);
+        board[x][y] = state ;
         notifyObservers(x, y);
     }
 
     @Override
     public State getCell(int x, int y)
     {
-        return board[x][y].getState();
+        return board[x][y];
     }
 
     public void updateCell(State state, int x, int y)
     {
-        board[x][y].setState(state);
+        board[x][y] = state;
     }
 
     @Override
@@ -79,11 +79,11 @@ public final class Containter implements Subject , Container<State>{
     @Override
     public void clear()
     {
-        for (StateContext[] board1 : board)
+        for (State[] board1 : board)
         {
-            for (StateContext board11 : board1)
+            for (State board11 : board1)
             {
-                board11.setState(new Insulator());
+                board11 = new Insulator();
             }
         }
     }
@@ -91,9 +91,9 @@ public final class Containter implements Subject , Container<State>{
     @Override
     public void write()
     {
-        for (int i = 0; i < board.length; i++)
+        for (int i = 0; i < getHeight(); i++)
         {
-            for (int j = 0; j < board[i].length; j++)
+            for (int j = 0; j < getWidth() ; j++)
             {
                 System.out.print(getCell(i, j).getClass() + " ");
             }

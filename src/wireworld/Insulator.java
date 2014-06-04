@@ -14,7 +14,7 @@ import java.awt.Color;
 public class Insulator implements State, Element {
 
     @Override
-    public void markElement(int x, int y, Containter board)
+    public void markElement(int x, int y, Board board)
     {
         if (!board.isEdge(x, y))
         {
@@ -23,7 +23,7 @@ public class Insulator implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, Containter board)
+    public State nextState(int x, int y, int neighborCounter)
     {
         return new Insulator();
     }

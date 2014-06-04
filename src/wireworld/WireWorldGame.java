@@ -5,29 +5,30 @@
  */
 package wireworld;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author Matexo
  */
 public class WireWorldGame implements Game, Observer {
 
-    private Containter board;
-    private Containter boardTmp;
-    private final StateContext state;
+    private Board board;
+    private final Board boardTmp;
 
-    public WireWorldGame(Containter board)
+    public WireWorldGame(Board board)
     {
         this.board = board;
-        this.boardTmp = new Containter();
-        state = new StateContext();
+        this.boardTmp = new Board();
     }
 
-    public void setBoard(Containter board)
+    public void setBoard(Board board)
     {
         this.board = board;
     }
 
-    public Containter getBoard()
+    public Board getBoard()
     {
         return board;
     }
@@ -40,8 +41,8 @@ public class WireWorldGame implements Game, Observer {
         {
             for (int j = 0; j < board.getHeight(); j++)
             {
-                state.setState(board.getCell(i, j));
-                boardTmp.setCell(state.nextState(i, j, board), i, j);
+                int counter = board.neighborsCounter(i, j, new ElectronHead());
+                boardTmp.setCell(board.getCell(i, j).nextState(i, j, counter), i, j);
             }
         }
 
@@ -57,6 +58,20 @@ public class WireWorldGame implements Game, Observer {
             }
         }
 
+    }
+
+    @Override
+    public void loadBoardFromFile(File file) throws IOException
+    {
+        InOut load = new InOut();
+        load.readFile(file , this.board);
+    }
+
+    @Override
+    public void saveBoardToFile(File file) throws IOException
+    {
+        InOut save = new InOut();
+        save.writeFile(file, this.board);
     }
 
     @Override

@@ -12,7 +12,7 @@ package wireworld;
 public class OR implements Element {
 
     @Override
-    public void markElement(int x, int y, Containter board)
+    public void markElement(int x, int y, Board board)
     {
         Element conductor = new Conductor();
         conductor.markElement(x, y, board);

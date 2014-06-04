@@ -32,10 +32,10 @@ import javax.swing.JTextField;
 // dodac instrukcje
 public class GUISwing extends JFrame implements ActionListener {
 
-    Containter board;
+    Board board;
     WireWorldGame game;
     Painter painter;
-    InOut readWrite;
+    //InOut readWrite;
     boolean isStop;
 
     //upper menu
@@ -58,9 +58,9 @@ public class GUISwing extends JFrame implements ActionListener {
 
     public GUISwing()
     {
-        this.board = new Containter();
+        this.board = new Board();
         game = new WireWorldGame(this.board);
-        readWrite = new InOut(this.board);
+        //readWrite = new InOut(this.board);
 
         fileChooser = new JFileChooser();
         isStop = false;
@@ -79,7 +79,7 @@ public class GUISwing extends JFrame implements ActionListener {
 
         board.register(game);
         board.register(painter);
-        board.register(readWrite);
+        //board.register(readWrite);
 
     }
 
@@ -183,12 +183,13 @@ public class GUISwing extends JFrame implements ActionListener {
                 File file = fileChooser.getSelectedFile();
                 try
                 {
-                    readWrite.readFile(file);
+                    game.loadBoardFromFile(file);
                 }
                 catch (IOException ex)
                 {
                     Logger.getLogger(GUISwing.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         }
         else if (selection == writeFile)
@@ -198,7 +199,7 @@ public class GUISwing extends JFrame implements ActionListener {
                 File file = fileChooser.getSelectedFile();
                 try
                 {
-                    readWrite.writeFile(board, file);
+                    game.saveBoardToFile(file);
                 }
                 catch (IOException ex)
                 {

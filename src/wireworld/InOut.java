@@ -15,21 +15,9 @@ import java.io.PrintStream;
  *
  * @author Matexo
  */
-public class InOut implements Observer{
+public class InOut {
 
-    Element element;
-    StateContext state;
-    Containter board;
-
-    public InOut(Containter board)
-    {
-        this.board = board;
-        state = new StateContext();
-        
-    }
-
-    // sprawdzac x i y czy sie mieszcza !!
-    public void readFile(File fileName) throws IOException
+    public void readFile(File fileName, Board board) throws IOException
     {
         try
         {
@@ -40,8 +28,17 @@ public class InOut implements Observer{
                 String[] p = buffer.split("\\s+");
                 try
                 {
-                    element = ElementFactory.buildElement(p[0]);
-                    element.markElement(Integer.parseInt(p[1]), Integer.parseInt(p[2]), board);
+                    int x = Integer.parseInt(p[1]);
+                    int y = Integer.parseInt(p[2]);
+                    if (!board.isEdge(x, y))
+                    {
+                        ElementFactory.buildElement(p[0]).markElement(x, y, board);
+                    }
+                    else
+                    {
+                        System.err.println("Zignorowana linia\"" + buffer + "\" - złe pozycje elementów");
+                    }
+
                 }
                 catch (ArrayIndexOutOfBoundsException e)
                 {
@@ -59,7 +56,7 @@ public class InOut implements Observer{
         }
     }
 
-    public void writeFile(Containter board, File file) throws IOException
+    public void writeFile(File file, Board board) throws IOException
     {
         try (PrintStream out = new PrintStream(file))
         {
@@ -67,18 +64,10 @@ public class InOut implements Observer{
             {
                 for (int j = 0; j < board.getHeight(); j++)
                 {
-                    state.setState(board.getCell(i, j));
-                    out.print(state.writeState(i, j));
-
+                    out.print(board.getCell(i, j).writeState(i, j));
                 }
             }
         }
-    }
-
-    @Override
-    public void update(int x, int y, State state)
-    {
-        this.board.updateCell(state, x, y);
     }
 
 }

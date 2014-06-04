@@ -13,7 +13,7 @@ package wireworld;
 public class AND implements Element{
 
     @Override
-    public void markElement(int x, int y, Containter board) {
+    public void markElement(int x, int y, Board board) {
          board.setCell(new Conductor(), x, y);
          board.setCell(new Conductor(), x - 1, y - 1);
          board.setCell(new Conductor(), x - 1, y);

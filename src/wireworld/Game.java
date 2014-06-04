@@ -5,11 +5,19 @@
  */
 package wireworld;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author Matexo
  */
 public interface Game {
 
-    void gameNextStep();
+    public void gameNextStep();
+
+    public void saveBoardToFile(File file) throws IOException;
+    
+    public void loadBoardFromFile(File file) throws IOException;
+
 }

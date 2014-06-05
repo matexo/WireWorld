@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Game;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +15,12 @@ import java.io.IOException;
 public interface Game {
 
     public void gameNextStep();
+    
+    public void restartGame();
 
     public void saveBoardToFile(File file) throws IOException;
     
     public void loadBoardFromFile(File file) throws IOException;
+    
 
 }

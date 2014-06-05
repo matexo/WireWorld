@@ -1,10 +1,12 @@
-package wireworld;
+package WireWorldGame;
+
+import GUI.GUISwing;
 
 /**
  *
  * @author Matexo
  */
-public class Main {
+public class GameRunner {
 
     public static void main(String[] args)
     {

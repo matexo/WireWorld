@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Elements;
 
+
+import Containter.Board;
 /**
  *
- * @author uesr
+ * @author Matexo
  */
-public class NOT {
+public interface Element {
+
+    void markElement(int x, int y, Board board);
 
 }

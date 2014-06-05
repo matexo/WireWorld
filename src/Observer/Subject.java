@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
-
-import java.awt.Color;
+package Observer;
 
 /**
  *
  * @author Matexo
  */
-public interface State {
+public interface Subject {
 
-    State nextState(int x, int y, int neighborCounter);
+    public void register(Observer observer);
 
-    Color getColor();
+    public void unregister(Observer observer);
 
-    String writeState(int x, int y);
+    public void notifyObservers(int x, int y);
+
 }

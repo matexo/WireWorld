@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package wireworld;
+package Elements;
 
+
+import Containter.Board;
 /**
  *
  * @author uesr

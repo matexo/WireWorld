@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Elements;
 
+import Elements.Conductor;
+
+import Containter.Board;
 /**
  *
  * @author uesr

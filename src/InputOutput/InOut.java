@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package InputOutput;
 
+import Elements.ElementFactory;
+import Containter.Board;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,7 +19,7 @@ import java.io.PrintStream;
  */
 public class InOut {
 
-    public void readFile(File fileName, Board board) throws IOException
+    public static void readFile(File fileName, Board board) throws IOException
     {
         try
         {
@@ -56,7 +58,7 @@ public class InOut {
         }
     }
 
-    public void writeFile(File file, Board board) throws IOException
+    public static void writeFile(File file, Board board) throws IOException
     {
         try (PrintStream out = new PrintStream(file))
         {

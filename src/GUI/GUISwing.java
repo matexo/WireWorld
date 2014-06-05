@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package GUI;
 
+import Game.WireWorldGame;
+import Elements.Conductor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import Containter.Board;
+import Elements.ElementFactory;
 
 /**
  *
@@ -60,7 +64,6 @@ public class GUISwing extends JFrame implements ActionListener {
     {
         this.board = new Board();
         game = new WireWorldGame(this.board);
-        //readWrite = new InOut(this.board);
 
         fileChooser = new JFileChooser();
         isStop = false;
@@ -79,8 +82,6 @@ public class GUISwing extends JFrame implements ActionListener {
 
         board.register(game);
         board.register(painter);
-        //board.register(readWrite);
-
     }
 
     private void iniFrame()
@@ -244,7 +245,7 @@ public class GUISwing extends JFrame implements ActionListener {
         }
         else if (selection == buttonClear)
         {
-            board.clear();
+            game.restartGame();
             painter.repaint();
         }
         else if (selection == buttonNext)

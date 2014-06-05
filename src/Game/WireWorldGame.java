@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Game;
 
+import Observer.Observer;
+import Elements.State;
+import Elements.ElectronHead;
 import java.io.File;
 import java.io.IOException;
+import Containter.Board;
+import InputOutput.InOut;
 
 /**
  *
@@ -61,17 +66,22 @@ public class WireWorldGame implements Game, Observer {
     }
 
     @Override
+    public void restartGame()
+    {
+        this.board.clear();
+    }
+    
+    
+    @Override
     public void loadBoardFromFile(File file) throws IOException
     {
-        InOut load = new InOut();
-        load.readFile(file , this.board);
+        InOut.readFile(file , this.board);
     }
 
     @Override
     public void saveBoardToFile(File file) throws IOException
     {
-        InOut save = new InOut();
-        save.writeFile(file, this.board);
+        InOut.writeFile(file, this.board);
     }
 
     @Override

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Containter;
 
+import Observer.Subject;
+import Observer.Observer;
+import Elements.State;
+import Elements.Insulator;
 import java.util.ArrayList;
 
 /**
@@ -79,13 +83,9 @@ public final class Board implements Subject , Container<State>{
     @Override
     public void clear()
     {
-        for (State[] board1 : board)
-        {
-            for (State board11 : board1)
-            {
-                board11 = new Insulator();
-            }
-        }
+        for(int i=0 ; i < getWidth() ; i++)
+            for(int j=0 ; j < getHeight() ; j++)
+                setCell(new Insulator(), i, j);
     }
 
     @Override

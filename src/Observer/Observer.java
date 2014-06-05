@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package Observer;
+
+import Elements.State;
 
 /**
  *
  * @author Matexo
  */
-public interface Subject {
+public interface Observer {
 
-    public void register(Observer observer);
-
-    public void unregister(Observer observer);
-
-    public void notifyObservers(int x, int y);
+    public void update(int x, int y, State state);
 
 }

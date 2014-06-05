@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wireworld;
+package GUI;
 
+import Containter.Board;
+import Observer.Observer;
+import Elements.State;
+import Elements.Element;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -13,7 +17,8 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 /**
- *
+ import wireworld.Board;
+*
  * @author Matexo
  */
 public class Painter extends JPanel implements MouseListener, MouseMotionListener, Observer {

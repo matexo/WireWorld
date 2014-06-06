@@ -39,7 +39,6 @@ public class GUISwing extends JFrame implements ActionListener {
     Board board;
     WireWorldGame game;
     Painter painter;
-    //InOut readWrite;
     boolean isStop;
 
     //upper menu
@@ -86,7 +85,7 @@ public class GUISwing extends JFrame implements ActionListener {
 
     private void iniFrame()
     {
-        setSize(1000, 800);
+        setSize(1000, 851);
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("WireWorld");

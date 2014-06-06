@@ -20,12 +20,10 @@ import InputOutput.InOut;
 public class WireWorldGame implements Game, Observer {
 
     private Board board;
-    private final Board boardTmp;
 
     public WireWorldGame(Board board)
     {
         this.board = board;
-        this.boardTmp = new Board();
     }
 
     public void setBoard(Board board)
@@ -41,13 +39,13 @@ public class WireWorldGame implements Game, Observer {
     @Override
     public void gameNextStep()
     {
-        boardTmp.clear();
+        Board boardTmp = new Board();
         for (int i = 0; i < board.getWidth(); i++)
         {
             for (int j = 0; j < board.getHeight(); j++)
             {
                 int counter = board.neighborsCounter(i, j, new ElectronHead());
-                boardTmp.setCell(board.getCell(i, j).nextState(i, j, counter), i, j);
+                boardTmp.setCell(board.getCell(i, j).nextState(counter), i, j);
             }
         }
 

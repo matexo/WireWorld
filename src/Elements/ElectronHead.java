@@ -24,7 +24,7 @@ public class ElectronHead implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, int neighborCounter)
+    public State nextState(int neighborCounter)
     {
         return new ElectronTail();
     }

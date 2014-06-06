@@ -5,7 +5,6 @@
  */
 package Elements;
 
-import Elements.Conductor;
 
 import Containter.Board;
 /**

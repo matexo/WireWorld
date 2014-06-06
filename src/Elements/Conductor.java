@@ -24,7 +24,7 @@ public class Conductor implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, int neighborCounter)
+    public State nextState(int neighborCounter)
     {
         
         if (neighborCounter != 1 && neighborCounter != 2)

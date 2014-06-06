@@ -5,14 +5,6 @@
  */
 package Elements;
 
-import Elements.OR;
-import Elements.Insulator;
-import Elements.ElectronHead;
-import Elements.Element;
-import Elements.ElectronTail;
-import Elements.Diode;
-import Elements.Conductor;
-
 /**
  *
  * @author Matexo

@@ -5,7 +5,6 @@
  */
 package Elements;
 
-import Elements.Conductor;
 import java.awt.Color;
 
 import Containter.Board;
@@ -25,7 +24,7 @@ public class ElectronTail implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, int neighborCounter)
+    public State nextState(int neighborCounter)
     {
         return new Conductor();
     }

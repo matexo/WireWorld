@@ -5,7 +5,6 @@
  */
 package Elements;
 
-import Elements.Element;
 import java.awt.Color;
 
 import Containter.Board;
@@ -25,7 +24,7 @@ public class Insulator implements State, Element {
     }
 
     @Override
-    public State nextState(int x, int y, int neighborCounter)
+    public State nextState(int neighborCounter)
     {
         return new Insulator();
     }

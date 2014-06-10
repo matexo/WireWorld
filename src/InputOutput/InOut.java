@@ -42,6 +42,10 @@ public class InOut {
                     }
 
                 }
+                catch (NullPointerException e)
+                {
+                    System.err.println("Zigronorwana linia \"" + buffer + "\" - podano zły element");
+                }
                 catch (ArrayIndexOutOfBoundsException e)
                 {
                     System.err.println("Zignorowana linia \"" + buffer + "\" - zbyt mało pól");

@@ -20,7 +20,8 @@ public class OR implements Element {
         conductor.markElement(x, y, board);
         conductor.markElement(x + 1, y, board);
         conductor.markElement(x + 1, y - 1, board);
-        conductor.markElement(x + 1, y - 2, board);
+        conductor.markElement(x + 1, y + 1, board);
+        conductor.markElement(x, y - 2, board);
         conductor.markElement(x, y + 2, board);
         conductor.markElement(x - 1, y - 2, board);
         conductor.markElement(x - 1, y + 2, board);
@@ -30,6 +31,7 @@ public class OR implements Element {
         conductor.markElement(x - 3, y - 1, board);
         conductor.markElement(x + 2, y, board);
         conductor.markElement(x + 3, y, board);
+                
     }
 
 }

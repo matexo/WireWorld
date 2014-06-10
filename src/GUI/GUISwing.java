@@ -151,6 +151,7 @@ public class GUISwing extends JFrame implements ActionListener {
         elementChooser.addItem("IZOLATOR");
         elementChooser.addItem("DIODA");
         elementChooser.addItem("OR");
+        elementChooser.addItem("NAND");
         elementChooser.addActionListener(this);
         add(elementChooser);
 
@@ -209,7 +210,17 @@ public class GUISwing extends JFrame implements ActionListener {
         }
         else if (selection == help)
         {
-            JOptionPane.showMessageDialog(menu, "ISNTRUKCJA");
+            JOptionPane.showMessageDialog(menu, "WireWorld\nProgram symuluje działanie algorytmu "
+                    + "Wireworld.\n"
+                    + "Możliwy jest odczyt i zapis z pliku.\n"					
+                    + "Plansza na początku wypełniona jest stanem IZOLATOR.\n"
+                    + "Aby rozpocząć symulację można"
+                    + "wczytać odpowiedni plik tekstowy"
+                    + "lub samodzielnie ułożyć planszę za pomocą myszki.\n"
+                    + "Działanie programu można w każdej chwili zatrzymać"
+                    + "przyciskiem STOP, jak również wznowić przyciskiem START.\n"
+                    + "Dostępne elementy w pliku tekstowym:\n"
+                    + "Insulator , ElectronHead , ElectronTail , Conductor , Diode , OR , NAND");
         }
         else if (selection == buttonStart)
         {

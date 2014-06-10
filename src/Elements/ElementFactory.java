@@ -37,6 +37,8 @@ public class ElementFactory {
                 return new Diode();
             case "OR":
                 return new OR();
+            case "NAND":
+                return new NAND();
             default:
                 System.err.println("Zignorowana linia \"" + s + "\" - nie istnieje taki element");
         }
